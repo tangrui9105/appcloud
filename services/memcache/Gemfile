@@ -1,0 +1,20 @@
+source :rubygems
+
+gem "eventmachine"
+gem "json"
+gem 'nats', '>= 0.4.2', :require => 'nats/client'
+gem "ruby-hmac"
+gem "uuidtools"
+gem "datamapper", ">= 0.10.2"
+gem "do_sqlite3"
+gem "dm-sqlite-adapter"
+gem "systemu"
+
+gem 'vcap_common', :path => '../../common'
+
+group :test do
+  gem "rake"
+  gem "rspec"
+  gem "rcov"
+  gem "ci_reporter"
+end

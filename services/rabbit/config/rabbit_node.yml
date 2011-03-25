@@ -1,0 +1,13 @@
+---
+local_ip: /var/vcap/services/rabbit/rabbit_service.db
+rabbit_ctl: /usr/sbin/rabbitmqctl
+rabbit_server: /usr/sbin/rabbitmq-server
+mbus: nats://localhost:4222
+log_level: DEBUG
+local_ip: 127.0.0.1
+available_memory: 4096
+max_memory: 16
+node_id: rabbit_node_1
+pid: /var/vcap/sys/run/rabbit_node.pid
+local_db: sqlite3:/tmp/rabbit_node.db
+

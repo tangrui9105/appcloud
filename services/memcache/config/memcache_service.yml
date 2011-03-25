@@ -1,0 +1,11 @@
+---
+localdb: /var/vcap/services/memcache/memcache_service.db
+memcache:
+  host: 127.0.0.1
+  port: 6306
+  default_mem: 64
+  max_mem: 512
+mbus: nats://localhost:4222
+log_level: DEBUG
+pid: /var/vcap/sys/run/memcache_service.pid
+
