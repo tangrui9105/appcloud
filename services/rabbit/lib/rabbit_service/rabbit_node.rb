@@ -1,8 +1,6 @@
 require "set"
 require "datamapper"
 require "uuidtools"
-require "vcap/common"
-require "vcap/component"
 
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', '..', '..', 'base', 'lib')
 require 'base/node'
@@ -16,9 +14,14 @@ module VCAP
   end
 end
 
+require "rabbit_service/common"
+
 VALID_CREDENTIAL_CHARACTERS = ("A".."Z").to_a + ("a".."z").to_a + ("0".."9").to_a
 
 class VCAP::Services::Rabbit::Node
+
+	include VCAP::Services::Rabbit::Common
+
   class ProvisionedService
     include DataMapper::Resource
     property :name,            String,      :key => true
