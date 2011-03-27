@@ -1,0 +1,6 @@
+HTTP/1.1 410 Gone
+Content-Type: application/json
+Content-Length: 45
+Connection: keep-alive
+Server: thin 1.2.8 codename Black Keys
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="VCAP::Services::Redis::Node Node.initialize" tests="9" time="0.013673999" failures="0" errors="0" skipped="0">
+  <testcase name="VCAP::Services::Redis::Node Node.initialize should set up a base directory" time="0.002013401">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.initialize should set up a redis server path" time="0.001575883">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.initialize should set up a redis client path" time="0.00148568">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.initialize should set up a local IP" time="0.001083462">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.initialize should set up an available memory size" time="0.001148143">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.initialize should set up a maximum memory size" time="0.001544028">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.initialize should set up a max swap size " time="0.001401481">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.initialize should load the redis configuration template" time="0.001165282">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.initialize should setup a free port set" time="0.001159062">
+  </testcase>
+  <system-out>
+  </system-out>
+  <system-err>
+  </system-err>
+</testsuite>

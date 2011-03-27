@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="VCAP::Services::Redis::Node Node.memory_for_service" tests="1" time="0.001864469" failures="0" errors="0" skipped="0">
+  <testcase name="VCAP::Services::Redis::Node Node.memory_for_service should return the maximum open file descriptor number" time="0.001514494">
+  </testcase>
+  <system-out>
+  </system-out>
+  <system-err>
+  </system-err>
+</testsuite>

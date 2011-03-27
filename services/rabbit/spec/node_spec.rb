@@ -7,6 +7,7 @@ module VCAP
     module Rabbit
       class Node
          attr_reader :rabbit_ctl, :rabbit_server, :local_ip, :available_memory, :max_memory, :local_db, :mbus
+				 attr_accessor :logger
       end
     end
   end
@@ -27,7 +28,12 @@ describe VCAP::Services::Rabbit::Node do
       :local_db => "sqlite3:/tmp/rabbit_node.db",
       :mbus => "nats://localhost:4222"
     }
-		@node = VCAP::Services::Rabbit::Node.new(@options)
+		EM.run do
+			@node = VCAP::Services::Rabbit::Node.new(@options)
+			EM.add_timer(0.1) {
+				EM.stop
+			}
+		end
   end
 
   before :each do
@@ -41,7 +47,7 @@ describe VCAP::Services::Rabbit::Node do
     @provisioned_service.memory = @options[:memory]
 
 		@application = VCAP::Services::Rabbit::Node::BindingApplication.new
-		@application.name = "application-#{UUIDTools::UUID.random_create.to_s}"
+		@application.application_id = "application-#{UUIDTools::UUID.random_create.to_s}"
 		@application.binding_options = :all
 		@application.vhost = "unittest"
 		@application.username = "u" + @node.generate_credential
@@ -183,11 +189,13 @@ describe VCAP::Services::Rabbit::Node do
     end
 
     it "should raise error when unprovision an non-existed name" do
+      @node.logger.level = Logger::ERROR
 			@node.unprovision("non-existed")
+      @node.logger.level = Logger::DEBUG
     end
 	end
 
-	describe "Node.binding" do
+	describe "Node.bind" do
 		before :all do
 		  EM.run do
 				@response = @node.provision(:free)
@@ -203,7 +211,7 @@ describe VCAP::Services::Rabbit::Node do
 
 	  it "should create a new user with specified permission in rabbit server" do
 		  EM.run do
-				response = @node.binding("application1", @response["name"])
+				response = @node.bind(@response["name"], "application1")
 				EM.add_timer(1) {
 					AMQP.start(:host => response["hostname"],
 										 :vhost => response["vhost"],
@@ -214,22 +222,65 @@ describe VCAP::Services::Rabbit::Node do
 					AMQP.stop
 				}
 				EM.add_timer(2) {
-					@node.unbinding(response["name"])
+					@node.unbind(@response["name"], "application1")
 					EM.stop
 				}
 			end
 		end
 
-		it "should send provision messsage when finish a provision" do
+		it "should send binding messsage when finish a binding" do
 		  EM.run do
-				response = @node.binding("application1", @response["name"])
+				response = @node.bind(@response["name"], "application1")
 				EM.add_timer(1) {
-					response["name"].should be
 					response["hostname"].should be
 					response["vhost"].should be
 					response["username"].should be
 					response["password"].should be
-					@node.unbinding(response["name"])
+					@node.unbind(@response["name"], "application1")
+					EM.stop
+				}
+			end
+		end
+	end
+
+	describe "Node.unbind" do
+		before :all do
+		  EM.run do
+				@response = @node.provision(:free)
+				EM.add_timer(1) {
+					EM.stop
+				}
+			end
+		end
+
+		after :all do
+			@node.unprovision(@response["name"])
+		end
+
+	  it "should delete user with specified permission in rabbit server" do
+		  EM.run do
+				response = @node.bind(@response["name"], "application1")
+				EM.add_timer(1) {
+					@node.unbind(@response["name"], "application1")
+				}
+				EM.add_timer(2) {
+					AMQP.start(:host => response["hostname"],
+										 :vhost => response["vhost"],
+										 :user => response["username"],
+										 :pass => response["password"]) do |conn|
+						conn.connected?.should == false
+					end
+					AMQP.stop
+					EM.stop
+				}
+			end
+		end
+
+		it "should send binding messsage when finish a binding" do
+		  EM.run do
+				response = @node.bind(@response["name"], "application1")
+				EM.add_timer(1) {
+					@node.unbind(@response["name"], "application1").should be
 					EM.stop
 				}
 			end

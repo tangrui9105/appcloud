@@ -108,10 +108,11 @@ class VCAP::Services::Redis::Node
     }
   rescue => e
     @logger.warn(e)
+		nil
   end
 
-  def unprovision(name)
-    provisioned_service = get_provisioned_service(name)
+  def unprovision(service_id)
+    provisioned_service = get_provisioned_service(service_id)
 
     @logger.debug("Killing #{provisioned_service.name} started with pid #{provisioned_service.pid}")
     stop_instance(provisioned_service) if provisioned_service.running?
@@ -119,10 +120,28 @@ class VCAP::Services::Redis::Node
 		destroy_provisioned_service(provisioned_service)
     @free_ports.add(provisioned_service.port)
 
-    @logger.debug("Successfully fulfilled unprovision request: #{name}.")
+    @logger.debug("Successfully fulfilled unprovision request: #{service_id}.")
+		true
   rescue => e
     @logger.warn(e)
+		nil
   end
+
+  def bind(service_id, application_id, binding_options = :all)
+	  provisioned_service = get_provisioned_service(service_id)
+    response = {
+			"hostname" => @local_ip,
+			"port" => provisioned_service.port,
+			"password" => provisioned_service.password
+    }
+  rescue => e
+    @logger.warn(e)
+		nil
+	end
+
+  def unbind(service_id, application_id, binding_options = :all)
+	  true
+	end
 
 	def save_provisioned_service(provisioned_service)
     unless provisioned_service.save
@@ -167,7 +186,7 @@ class VCAP::Services::Redis::Node
 			vm_max_memory = (memory * 0.7).round
 			vm_pages = (@max_swap * 1024 * 1024 / 32).round # swap in bytes / size of page (32 bytes)
 
-			config = @config_template.result(binding)
+			config = @config_template.result(Kernel.binding)
 			config_path = File.join(dir, "redis.conf")
 
 			FileUtils.mkdir_p(dir)
@@ -179,9 +198,6 @@ class VCAP::Services::Redis::Node
 			exec("#{@redis_server_path} #{config_path}")
     end
   end
-
-	def setup_redis_conf(provisioned_service)
-	end
 
 	def stop_instance(provisioned_service)
     dir = File.join(@base_dir, provisioned_service.name)

@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <title>Spec C0 Coverage Information - RCov</title>
+    <link href="screen.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="print.css" media="print" rel="stylesheet" type="text/css" />
+    
+    <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="rcov.js"></script>
+  </head>
+  <body>
+    <h1>Spec C0 Coverage Information - RCov</h1>
+    
+
+    <noscript><style type="text/css">.if_js { display:none; }</style></noscript>
+
+    <div class="filters if_js">
+      <fieldset>
+        <label>File Filter:</label>
+        <select id="file_filter" class="filter">
+          <option value="all_files">Show All</option>
+          <option value="">/</option><option value="Projects">Projects/</option><option value="base">base/</option><option value="common">common/</option><option value="core">core/</option><option value="github">github/</option><option value="lib">lib/</option><option value="redis">redis/</option><option value="redis_service">redis_service/</option><option value="root">root/</option><option value="services">services/</option><option value="tangr1">tangr1/</option><option value="vcap">vcap/</option><option value="vmware">vmware/</option>
+        </select>
+      </fieldset>
+      <fieldset>
+        <label>Code Coverage Threshold:</label>
+        <select id="coverage_filter" class="filter">
+          <option value="all_coverage">Show All</option>
+          <option value="10">&lt; 10% Coverage</option><option value="20">&lt; 20% Coverage</option><option value="30">&lt; 30% Coverage</option><option value="40">&lt; 40% Coverage</option><option value="50">&lt; 50% Coverage</option><option value="60">&lt; 60% Coverage</option><option value="70">&lt; 70% Coverage</option><option value="80">&lt; 80% Coverage</option><option value="90">&lt; 90% Coverage</option><option value="100">&lt; 100% Coverage</option>
+          <option value="110">= 100% Coverage</option>
+        </select>
+      </fieldset>
+    </div>
+    
+    <div class="report_table_wrapper">
+      <table class='report' id='report_table'>
+        <thead>
+          <tr>
+            <th class="left_align">Name</th>
+            <th class="right_align">Total Lines</th>
+            <th class="right_align">Lines of Code</th>
+            <th class="left_align">Total Coverage</th>
+            <th class="left_align">Code Coverage</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td class="left_align">TOTAL</td>
+            <td class='right_align'><tt>978</tt></td>
+            <td class='right_align'><tt>764</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>47.75%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:48px"></div>
+            <div class="uncovered" style="width:52px"></div>
+          </div></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class='coverage_total'>47.25%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:47px"></div>
+            <div class="uncovered" style="width:53px"></div>
+          </div></td>
+          </tr>
+        </tfoot>
+        <tbody>
+          
+            <tr class="all_files all_coverage 40 50 60 70 80 90 100  root Projects github tangr1 vmware core common lib vcap even">
+              <td class="left_align"><a href="-root-Projects-github-tangr1-vmware-core-common-lib-vcap-common_rb.html">/root/Projects/github/tangr1/vmware/core/common/lib/vcap/common.rb</a></td>
+              <td class='right_align'><tt>236</tt></td>
+              <td class='right_align'><tt>170</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>30.08%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:30px"></div>
+            <div class="uncovered" style="width:70px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>32.35%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:32px"></div>
+            <div class="uncovered" style="width:68px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage 60 70 80 90 100  root Projects github tangr1 vmware core common lib vcap odd">
+              <td class="left_align"><a href="-root-Projects-github-tangr1-vmware-core-common-lib-vcap-component_rb.html">/root/Projects/github/tangr1/vmware/core/common/lib/vcap/component.rb</a></td>
+              <td class='right_align'><tt>123</tt></td>
+              <td class='right_align'><tt>89</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>54.47%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:54px"></div>
+            <div class="uncovered" style="width:46px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>56.18%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:56px"></div>
+            <div class="uncovered" style="width:44px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage 90 100  root Projects github tangr1 vmware core services base lib base even">
+              <td class="left_align"><a href="-root-Projects-github-tangr1-vmware-core-services-base-lib-base-abstract_rb.html">/root/Projects/github/tangr1/vmware/core/services/base/lib/base/abstract.rb</a></td>
+              <td class='right_align'><tt>10</tt></td>
+              <td class='right_align'><tt>9</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>90.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:90px"></div>
+            <div class="uncovered" style="width:10px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>88.89%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:89px"></div>
+            <div class="uncovered" style="width:11px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage 30 40 50 60 70 80 90 100  root Projects github tangr1 vmware core services base lib base odd">
+              <td class="left_align"><a href="-root-Projects-github-tangr1-vmware-core-services-base-lib-base-barrier_rb.html">/root/Projects/github/tangr1/vmware/core/services/base/lib/base/barrier.rb</a></td>
+              <td class='right_align'><tt>53</tt></td>
+              <td class='right_align'><tt>46</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>30.19%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:30px"></div>
+            <div class="uncovered" style="width:70px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>26.09%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:26px"></div>
+            <div class="uncovered" style="width:74px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage 80 90 100  root Projects github tangr1 vmware core services base lib base even">
+              <td class="left_align"><a href="-root-Projects-github-tangr1-vmware-core-services-base-lib-base-base_rb.html">/root/Projects/github/tangr1/vmware/core/services/base/lib/base/base.rb</a></td>
+              <td class='right_align'><tt>50</tt></td>
+              <td class='right_align'><tt>40</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>80.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:80px"></div>
+            <div class="uncovered" style="width:20px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>75.00%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:75px"></div>
+            <div class="uncovered" style="width:25px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage 60 70 80 90 100  root Projects github tangr1 vmware core services base lib base odd">
+              <td class="left_align"><a href="-root-Projects-github-tangr1-vmware-core-services-base-lib-base-node_rb.html">/root/Projects/github/tangr1/vmware/core/services/base/lib/base/node.rb</a></td>
+              <td class='right_align'><tt>81</tt></td>
+              <td class='right_align'><tt>61</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>50.62%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:51px"></div>
+            <div class="uncovered" style="width:49px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>50.82%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:51px"></div>
+            <div class="uncovered" style="width:49px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage 30 40 50 60 70 80 90 100  root Projects github tangr1 vmware core services base lib base even">
+              <td class="left_align"><a href="-root-Projects-github-tangr1-vmware-core-services-base-lib-base-provisioner_rb.html">/root/Projects/github/tangr1/vmware/core/services/base/lib/base/provisioner.rb</a></td>
+              <td class='right_align'><tt>154</tt></td>
+              <td class='right_align'><tt>126</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>23.38%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:23px"></div>
+            <div class="uncovered" style="width:77px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>23.02%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:23px"></div>
+            <div class="uncovered" style="width:77px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage 100  root Projects github tangr1 vmware core services redis lib redis_service odd">
+              <td class="left_align"><a href="-root-Projects-github-tangr1-vmware-core-services-redis-lib-redis_service-common_rb.html">/root/Projects/github/tangr1/vmware/core/services/redis/lib/redis_service/common.rb</a></td>
+              <td class='right_align'><tt>11</tt></td>
+              <td class='right_align'><tt>11</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>90.91%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:91px"></div>
+            <div class="uncovered" style="width:9px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>90.91%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:91px"></div>
+            <div class="uncovered" style="width:9px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage 70 80 90 100  root Projects github tangr1 vmware core services redis lib redis_service even">
+              <td class="left_align"><a href="-root-Projects-github-tangr1-vmware-core-services-redis-lib-redis_service-redis_node_rb.html">/root/Projects/github/tangr1/vmware/core/services/redis/lib/redis_service/redis_node.rb</a></td>
+              <td class='right_align'><tt>246</tt></td>
+              <td class='right_align'><tt>203</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>68.29%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:68px"></div>
+            <div class="uncovered" style="width:32px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>65.02%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:65px"></div>
+            <div class="uncovered" style="width:35px"></div>
+          </div></td>
+            </tr>
+          
+            <tr class="all_files all_coverage 50 60 70 80 90 100  root Projects github tangr1 vmware core services redis lib redis_service odd">
+              <td class="left_align"><a href="-root-Projects-github-tangr1-vmware-core-services-redis-lib-redis_service-redis_provisioner_rb.html">/root/Projects/github/tangr1/vmware/core/services/redis/lib/redis_service/redis_provisioner.rb</a></td>
+              <td class='right_align'><tt>14</tt></td>
+              <td class='right_align'><tt>9</tt></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>64.29%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:64px"></div>
+            <div class="uncovered" style="width:36px"></div>
+          </div></td>
+              <td class="left_align"><div class="percent_graph_legend"><tt class=''>44.44%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:44px"></div>
+            <div class="uncovered" style="width:56px"></div>
+          </div></td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+    
+    <p>Generated on 2011-03-27 19:27:26 +0800 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+
+    <script type="text/javascript">
+      $(document).ready(function(){$("#report_table").tablesorter({widgets: ['zebra'], textExtraction: 'complex'});});
+      $('.filter').change(function(){
+        ff = $('#file_filter').val();
+        cf = $('#coverage_filter').val();
+        $('table#report_table tbody tr').each(function(i){ 
+          if ((this.className.split(" ").indexOf(ff) > -1) && (this.className.split(" ").indexOf(cf) > -1)) {
+            this.style.display = "";
+          } else {
+            this.style.display = "none";
+          };
+          restripe();
+        })
+      })
+    </script>
+
+  </body>
+</html>

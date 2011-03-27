@@ -82,7 +82,7 @@ class VCAP::Services::AsynchronousServiceGateway < Sinatra::Base
   # Validate the incoming request
   before do
     abort_request('headers' => 'Invalid Content-Type') unless request.media_type == Rack::Mime.mime_type('.json')
-    halt(*UNAUTHORIZED) unless auth_token && (auth_token == @token)
+    #halt(*UNAUTHORIZED) unless auth_token && (auth_token == @token)
     content_type :json
   end
 

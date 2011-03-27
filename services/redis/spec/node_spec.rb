@@ -7,6 +7,7 @@ module VCAP
     module Redis
       class Node
          attr_reader :base_dir, :redis_server_path, :redis_client_path, :local_ip, :available_memory, :max_memory, :max_swap, :node_id, :config_template, :free_ports
+				 attr_accessor :logger
       end
     end
   end
@@ -28,7 +29,7 @@ describe VCAP::Services::Redis::Node do
       :max_swap => 32,
       :node_id => "redis-node-1",
       :config_template => File.expand_path("../resources/redis.conf.erb", File.dirname(__FILE__)),
-      :local_db => "sqlite3:/var/vcap/services/redis/redis_node.db",
+      :local_db => "sqlite3:/tmp/redis_node.db",
       :port_range => Range.new(5000, 25000),
       :mbus => "nats://localhost:4222"
     }
@@ -210,7 +211,9 @@ describe VCAP::Services::Redis::Node do
     end
 
     it "should raise error when unprovision an non-existed name" do
+      @node.logger.level = Logger::ERROR
 			@node.unprovision("non-existed")
+      @node.logger.level = Logger::DEBUG
     end
   end
 
@@ -234,6 +237,55 @@ describe VCAP::Services::Redis::Node do
 			  e.should be
 				@node.destroy_provisioned_service(@provisioned_service)
 			end
+		end
+	end
+
+	describe "Node.bind" do
+		before :all do
+		  EM.run do
+				@response = @node.provision(:free)
+				EM.add_timer(1) {
+					EM.stop
+				}
+			end
+		end
+
+		after :all do
+			@node.unprovision(@response["name"])
+		end
+
+	  it "should access redis server use the returned credential" do
+		  response = @node.bind(@response["name"], "application1")
+		  %x[#{@options[:redis_client_path]} -p #{response["port"]} -a #{response["password"]} get test].should == "\n"
+			@node.unbind(@response["name"], "application1")
+		end
+
+		it "should send binding messsage when finish a binding" do
+		  response = @node.bind(@response["name"], "application1")
+				response["hostname"].should be
+				response["port"].should be
+				response["password"].should be
+			@node.unbind(@response["name"], "application1")
+		end
+	end
+
+	describe "Node.unbind" do
+		before :all do
+		  EM.run do
+				@response = @node.provision(:free)
+				EM.add_timer(1) {
+					EM.stop
+				}
+			end
+		end
+
+		after :all do
+			@node.unprovision(@response["name"])
+		end
+
+		it "should return true when finish an unbinding" do
+		  @node.bind(@response["name"], "application1")
+			@node.unbind(@response["name"], "application1").should == true
 		end
 	end
 

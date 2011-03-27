@@ -1,0 +1,35 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Services	asynchronous_service_gateway.rb	/^  module Services$/;"	m	class:VCAP
+Services	synchronous_service_gateway.rb	/^  module Services$/;"	m	class:VCAP
+VCAP	asynchronous_service_gateway.rb	/^class VCAP::Services::AsynchronousServiceGateway < Sinatra::Base$/;"	c
+VCAP	asynchronous_service_gateway.rb	/^module VCAP$/;"	m
+VCAP	synchronous_service_gateway.rb	/^class VCAP::Services::SynchronousServiceGateway < Sinatra::Base$/;"	c
+VCAP	synchronous_service_gateway.rb	/^module VCAP$/;"	m
+abort_request	asynchronous_service_gateway.rb	/^    def abort_request(errs)$/;"	f	class:VCAP
+abort_request	synchronous_service_gateway.rb	/^    def abort_request(errs)$/;"	f	class:VCAP
+async_abort_request	asynchronous_service_gateway.rb	/^    def async_abort_request(errs)$/;"	f	class:VCAP
+async_mode	asynchronous_service_gateway.rb	/^    def async_mode(timeout=10)$/;"	f	class:VCAP
+async_reply	asynchronous_service_gateway.rb	/^    def async_reply(resp='{}')$/;"	f	class:VCAP
+async_reply_raw	asynchronous_service_gateway.rb	/^    def async_reply_raw(status, headers, body)$/;"	f	class:VCAP
+auth_token	asynchronous_service_gateway.rb	/^    def auth_token$/;"	f	class:VCAP
+auth_token	synchronous_service_gateway.rb	/^    def auth_token$/;"	f	class:VCAP
+default_cloud_controller_uri	util.rb	/^def default_cloud_controller_uri$/;"	f
+fetch_handles	asynchronous_service_gateway.rb	/^  def fetch_handles$/;"	f	class:VCAP
+http_uri	asynchronous_service_gateway.rb	/^  def http_uri(uri)$/;"	f	class:VCAP
+initialize	asynchronous_service_gateway.rb	/^  def initialize(opts)$/;"	f	class:VCAP
+initialize	synchronous_service_gateway.rb	/^  def initialize(opts)$/;"	f	class:VCAP
+make_logger	asynchronous_service_gateway.rb	/^  def make_logger()$/;"	f	class:VCAP
+make_logger	synchronous_service_gateway.rb	/^  def make_logger()$/;"	f	class:VCAP
+parse_gateway_config	util.rb	/^def parse_gateway_config(config_file)$/;"	f
+request_body	asynchronous_service_gateway.rb	/^    def request_body$/;"	f	class:VCAP
+request_body	synchronous_service_gateway.rb	/^    def request_body$/;"	f	class:VCAP
+request_header	asynchronous_service_gateway.rb	/^    def request_header(header)$/;"	f	class:VCAP
+request_header	synchronous_service_gateway.rb	/^    def request_header(header)$/;"	f	class:VCAP
+send_deactivation_notice	asynchronous_service_gateway.rb	/^  def send_deactivation_notice(stop_event_loop=true)$/;"	f	class:VCAP
+send_heartbeat	asynchronous_service_gateway.rb	/^  def send_heartbeat$/;"	f	class:VCAP
+symbolize_keys	nuke_service.rb	/^def symbolize_keys(hash)$/;"	f

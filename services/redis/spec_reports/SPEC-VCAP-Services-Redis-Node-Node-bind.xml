@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="VCAP::Services::Redis::Node Node.bind" tests="2" time="1.386899221" failures="0" errors="0" skipped="0">
+  <testcase name="VCAP::Services::Redis::Node Node.bind should access redis server use the returned credential" time="0.021588402">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.bind should send binding messsage when finish a binding" time="0.004457023">
+  </testcase>
+  <system-out>
+  </system-out>
+  <system-err>
+  </system-err>
+</testsuite>

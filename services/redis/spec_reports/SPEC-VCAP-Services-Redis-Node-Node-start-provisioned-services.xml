@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="VCAP::Services::Redis::Node Node.start_provisioned_services" tests="3" time="6.582226227" failures="0" errors="0" skipped="0">
+  <testcase name="VCAP::Services::Redis::Node Node.start_provisioned_services should check whether provisioned service is running or not" time="2.128484155">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.start_provisioned_services should not start a new instance if the service is already started when start all provisioned services" time="2.195819226">
+  </testcase>
+  <testcase name="VCAP::Services::Redis::Node Node.start_provisioned_services should start a new instance if the service is not started when start all provisioned services" time="2.25718126">
+  </testcase>
+  <system-out>
+  </system-out>
+  <system-err>
+  </system-err>
+</testsuite>
