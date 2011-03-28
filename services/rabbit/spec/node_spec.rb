@@ -45,14 +45,6 @@ describe VCAP::Services::Rabbit::Node do
     @provisioned_service.admin_username = "au" + @node.generate_credential
     @provisioned_service.admin_password = "ap" + @node.generate_credential
     @provisioned_service.memory = @options[:memory]
-
-		@application = VCAP::Services::Rabbit::Node::BindingApplication.new
-		@application.application_id = "application-#{UUIDTools::UUID.random_create.to_s}"
-		@application.binding_options = :all
-		@application.vhost = "unittest"
-		@application.username = "u" + @node.generate_credential
-		@application.password = "p" + @node.generate_credential
-		@application.permissions = '".*" ".*" ".*"'
 	end
 
   describe "Node.initialize" do

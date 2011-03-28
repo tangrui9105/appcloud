@@ -31,18 +31,20 @@ class VCAP::Services::Rabbit::Node
     property :plan,            Enum[:free], :required => true
     property :plan_option,     String,      :required => false
     property :memory,          Integer,     :required => true
+		has n, :binding_applications
   end
 
   class BindingApplication
     include DataMapper::Resource
     # Name, binding_options, vhost can determine a binding,
     # if the three are the same, then share the same user.
-    property :application_id,  String,   :key => true
-    property :vhost,           String,   :key => true
-    property :binding_options, String,   :key => true
+		property :id,              Serial
+    property :application_id,  String,   :required => true
+    property :binding_options, String,   :required => true
     property :username,        String,   :required => true
     property :password,        String,   :required => true
     property :permissions,     String,   :required => true
+		belongs_to :provisioned_service
   end
 
   def initialize(options)
@@ -74,42 +76,47 @@ class VCAP::Services::Rabbit::Node
 	end
 
   def provision(plan)
-    provisioned_service = ProvisionedService.new
-    provisioned_service.name = "rabbit-#{UUIDTools::UUID.random_create.to_s}"
-    provisioned_service.plan = plan
-    provisioned_service.plan_option = ""
-    provisioned_service.vhost = "v" + UUIDTools::UUID.random_create.to_s.gsub(/-/, "")
-    provisioned_service.admin_username = "au" + generate_credential
-    provisioned_service.admin_password = "ap" + generate_credential
-    provisioned_service.memory   = @max_memory
+    service = ProvisionedService.new
+    service.name = "rabbit-#{UUIDTools::UUID.random_create.to_s}"
+    service.plan = plan
+    service.plan_option = ""
+    service.vhost = "v" + UUIDTools::UUID.random_create.to_s.gsub(/-/, "")
+    service.admin_username = "au" + generate_credential
+    service.admin_password = "ap" + generate_credential
+    service.memory   = @max_memory
 			
-		@available_memory -= provisioned_service.memory
+		@available_memory -= service.memory
 
-		save_provisioned_service(provisioned_service)
+		save_provisioned_service(service)
 
-    add_vhost(provisioned_service.vhost)
-    add_user(provisioned_service.admin_username, provisioned_service.admin_password) 
-    set_permissions(provisioned_service.vhost, provisioned_service.admin_username, '".*" ".*" ".*"') 
+    add_vhost(service.vhost)
+    add_user(service.admin_username, service.admin_password) 
+    set_permissions(service.vhost, service.admin_username, '".*" ".*" ".*"') 
 
     response = {
-			"name" => provisioned_service.name,
+			"name" => service.name,
 			"hostname" => @local_ip,
-			"vhost" => provisioned_service.vhost,
-			"username" => provisioned_service.admin_username,
-			"password" => provisioned_service.admin_password
+			"vhost" => service.vhost,
+			"username" => service.admin_username,
+			"password" => service.admin_password
     }
   rescue => e
-		@available_memory += provisioned_service.memory
+		@available_memory += service.memory
     @logger.warn(e)
 		nil
   end
 
   def unprovision(service_id)
-    provisioned_service = get_provisioned_service(service_id)
-    delete_user(provisioned_service.admin_username)
-    delete_vhost(provisioned_service.vhost)
-		destroy_provisioned_service(provisioned_service)
-    @available_memory += provisioned_service.memory
+    service = get_provisioned_service(service_id)
+		# Delete all bindings in this service
+		service.binding_applications.each do |application|
+			delete_user(application.username)
+			destroy_binding_application(application)
+		end
+    delete_user(service.admin_username)
+    delete_vhost(service.vhost)
+		destroy_provisioned_service(service)
+    @available_memory += service.memory
 		true
   rescue => e
     @logger.warn(e)
@@ -117,25 +124,26 @@ class VCAP::Services::Rabbit::Node
   end
 
   def bind(service_id, application_id, binding_options = :all)
-    provisioned_service = get_provisioned_service(service_id)
-
-    application = BindingApplication.first(:application_id => application_id, :binding_options => binding_options, :vhost => provisioned_service.vhost)
+    application = get_binding_application(service_id, application_id, binding_options)
     if application.nil?
+		  service = get_provisioned_service(service_id)
       application = BindingApplication.new
       application.application_id = application_id
       application.binding_options = binding_options
       application.username = "u" + generate_credential
       application.password = "p" + generate_credential
-      application.vhost = provisioned_service.vhost
+      application.provisioned_service = service
       application.permissions = '".*" ".*" ".*"'
 			save_binding_application(application)
       add_user(application.username, application.password)
-      set_permissions(application.vhost, application.username, application.permissions)
+      set_permissions(service.vhost, application.username, application.permissions)
+		else
+			service = application.provisioned_service
 		end
 
     response = {
 			"hostname" => @local_ip,
-			"vhost" => application.vhost,
+			"vhost" => service.vhost,
 			"username" => application.username,
 			"password" => application.password
     }
@@ -146,6 +154,7 @@ class VCAP::Services::Rabbit::Node
 
   def unbind(service_id, application_id, binding_options = :all)
     application = get_binding_application(service_id, application_id, binding_options)
+		raise "Could not find application: #{application_id}" if application.nil?
     delete_user(application.username)
 		destroy_binding_application(application)
 		true
@@ -177,11 +186,9 @@ class VCAP::Services::Rabbit::Node
 	end
 
 	def get_binding_application(service_id, application_id, binding_options)
-    provisioned_service = ProvisionedService.get(service_id)
-		raise "Could not find service: #{service_id}" if provisioned_service.nil?
-    application = BindingApplication.first(:application_id => application_id, :binding_options => binding_options, :vhost => provisioned_service.vhost)
-		raise "Could not find application: #{application_id}" if application.nil?
-		application
+    service = ProvisionedService.get(service_id)
+		raise "Could not find service: #{service_id}" if service.nil?
+    application = service.binding_applications.first(:application_id => application_id, :binding_options => binding_options)
 	end
 
   def start_server

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="VCAP::Services::Redis::Provisioner Provisioner.node_score" tests="1" time="0.001013881" failures="0" errors="0" skipped="0">
-  <testcase name="VCAP::Services::Redis::Provisioner Provisioner.node_score should returen the node available memory when get the node score" time="0.000499827">
-  </testcase>
-  <system-out>
-  </system-out>
-  <system-err>
-  </system-err>
-</testsuite>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="VCAP::Services::Redis::Node Node.unbind" tests="1" time="1.384462197" failures="0" errors="0" skipped="0">
-  <testcase name="VCAP::Services::Redis::Node Node.unbind should return true when finish an unbinding" time="0.004166909">
-  </testcase>
-  <system-out>
-  </system-out>
-  <system-err>
-  </system-err>
-</testsuite>
